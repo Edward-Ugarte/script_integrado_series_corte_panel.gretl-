@@ -1,0 +1,423 @@
+versión de Gretl 2025b
+Sesión actual: 2025-07-12 01:28
+
+? clear
+# ====================================================
+#  BLOQUE A: SERIES DE TIEMPO
+# ====================================================
+? clear
+
+Modelo 1: MCO, usando las observaciones 100-199 (T = 100)
+Variable dependiente: ingreso_st
+
+             coeficiente   Desv. típica   Estadístico t    valor p 
+  -----------------------------------------------------------------
+  const       506.291       11.0666           45.75       6.22e-068 ***
+  ano          19.9157       0.190253        104.7        2.19e-102 ***
+
+Media de la vble. dep.  1512.035   D.T. de la vble. dep.   580.3629
+Suma de cuad. residuos  295574.3   D.T. de la regresión    54.91871
+R-cuadrado              0.991136   R-cuadrado corregido    0.991045
+F(1, 98)                10957.89   Valor p (de F)          2.2e-102
+Log-verosimilitud      −541.4691   Criterio de Akaike      1086.938
+Criterio de Schwarz     1092.149   Crit. de Hannan-Quinn   1089.047
+rho                    −0.045917   Durbin-Watson           2.078741
+
+? modtest --autocorr
+
+Contraste Breusch-Godfrey de autocorrelación de primer orden
+MCO, usando las observaciones 100-199 (T = 100)
+Variable dependiente: uhat
+
+             coeficiente   Desv. típica   Estadístico t   valor p
+  ---------------------------------------------------------------
+  const      −0.0379750     11.1122         −0.003417     0.9973 
+  ano         0.00111691     0.191047        0.005846     0.9953 
+  uhat_1     −0.0459276      0.101717       −0.4515       0.6526 
+
+  R-cuadrado = 0.002097
+
+Estadístico de contraste: LMF = 0.203875,
+con valor p = P(F(1,97) > 0.203875) = 0.653
+
+Estadístico alternativo: TR^2 = 0.209739,
+con valor p = P(Chi-cuadrado(1) > 0.209739) = 0.647
+
+Ljung-Box Q' = 0.21487,
+con valor p = P(Chi-cuadrado(1) > 0.21487) = 0.643
+
+? modtest --white
+
+Contraste de heterocedasticidad de White
+MCO, usando las observaciones 100-199 (T = 100)
+Variable dependiente: uhat^2
+
+             coeficiente   Desv. típica   Estadístico t   valor p
+  ---------------------------------------------------------------
+  const       870.218      1251.59            0.6953      0.4885 
+  ano         109.329        57.2011          1.911       0.0589  *
+  sq_ano       −1.01539       0.548708       −1.851       0.0673  *
+
+  R-cuadrado = 0.036294
+
+Estadístico de contraste: TR^2 = 3.629405,
+con valor p = P(Chi-cuadrado(2) > 3.629405) = 0.162886
+
+? modtest --normal
+
+Distribución de frecuencias para uhat1, observaciones 1-100
+número de cajas = 11, Media = 9.66338e-014, Desv.típ.=54.9187
+
+      intervalo     punto medio   frecuencia  rel     acum.
+
+           < -120.50   -134.70        1      1.00%    1.00% 
+   -120.50 - -92.087   -106.29        4      4.00%    5.00% *
+   -92.087 - -63.676   -77.881        7      7.00%   12.00% **
+   -63.676 - -35.266   -49.471       20     20.00%   32.00% *******
+   -35.266 - -6.8551   -21.060       13     13.00%   45.00% ****
+   -6.8551 -  21.555    7.3502       18     18.00%   63.00% ******
+    21.555 -  49.966    35.761       22     22.00%   85.00% *******
+    49.966 -  78.377    64.171        8      8.00%   93.00% **
+    78.377 -  106.79    92.582        5      5.00%   98.00% *
+    106.79 -  135.20    120.99        1      1.00%   99.00% 
+          >=  135.20    149.40        1      1.00%  100.00% 
+
+Contraste de la hipótesis nula de distribución Normal:
+Chi-cuadrado(2) = 0.194 con valor p 0.90740
+
+
+             coeficiente   Desv. típica   Estadístico t    valor p 
+  -----------------------------------------------------------------
+  const       504.273        26.6215         18.94        3.41e-034 ***
+  ano          18.5426        4.77567         3.883       0.0002    ***
+  yhat^2       14.0573       56.6242          0.2483      0.8045   
+  yhat^3       −1.51107       7.16825        −0.2108      0.8335   
+
+Hipótesis nula: [La especificación es adecuada]
+Estadístico de contraste: F = 0.083603,
+con valor p = P(F(2,96) > 0.0836028) = 0.92
+
+
+
+Modelo 2: MCO, usando las observaciones 101-199 (T = 99)
+Variable dependiente: uhatsq
+
+              coeficiente   Desv. típica  Estadístico t  valor p 
+  ---------------------------------------------------------------
+  const       2708.00        513.938         5.269       8.27e-07 ***
+  lag_uhatsq     0.0863038     0.101189      0.8529      0.3958  
+
+Media de la vble. dep.  2964.263   D.T. de la vble. dep.   4142.897
+Suma de cuad. residuos  1.67e+09   D.T. de la regresión    4148.670
+R-cuadrado              0.007443   R-cuadrado corregido   -0.002789
+F(1, 97)                0.727427   Valor p (de F)          0.395820
+Log-verosimilitud      −964.1885   Criterio de Akaike      1932.377
+Criterio de Schwarz     1937.567   Crit. de Hannan-Quinn   1934.477
+rho                     0.000941   h de Durbin                   NA
+
+? gnuplot ingreso_st --with-lines --time-series --output=display
+# ====================================================
+#  BLOQUE B: CORTE TRANSVERSAL
+# ====================================================
+? clear
+
+
+Modelo 1: MCO, usando las observaciones 100-199 (n = 100)
+Variable dependiente: ingreso_ct
+
+             coeficiente  Desv. típica  Estadístico t   valor p 
+  --------------------------------------------------------------
+  const       306.048      37.0083          8.270      7.61e-013 ***
+  edad          9.03962     0.745890       12.12       4.64e-021 ***
+  educacion    39.7920      1.76805        22.51       4.54e-040 ***
+  genero      446.899      21.6993         20.60       5.34e-037 ***
+
+Media de la vble. dep.  1267.822   D.T. de la vble. dep.   390.4279
+Suma de cuad. residuos   1104064   D.T. de la regresión    107.2412
+R-cuadrado              0.926839   R-cuadrado corregido    0.924553
+F(3, 96)                405.3938   Valor p (de F)          2.32e-54
+Log-verosimilitud      −607.3608   Criterio de Akaike      1222.722
+Criterio de Schwarz     1233.142   Crit. de Hannan-Quinn   1226.939
+
+? vif
+
+Factores de inflación de varianza (VIF)
+Mínimo valor posible 
+Valores mayores que 10.0 pueden indicar un problema de colinealidad
+
+        edad    1.011
+   educacion    1.006
+      genero    1.017
+
+
+
+                coeficiente  Desv. típica  Estadístico t  valor p
+  ---------------------------------------------------------------
+  const         5797.57      16793.3          0.3452      0.7307 
+  edad           315.931       783.441        0.4033      0.6877 
+  educacion     −699.551      1257.82        −0.5562      0.5795 
+  genero        7883.63      10721.3          0.7353      0.4640 
+  sq_edad         −5.67829       9.15837     −0.6200      0.5368 
+  X2_X3            5.43986      16.9787       0.3204      0.7494 
+  X2_X4           −5.68838     213.867       −0.02660     0.9788 
+  sq_educacion    36.8679       48.8375       0.7549      0.4523 
+  X3_X4         −140.070       514.929       −0.2720      0.7862 
+
+  R-cuadrado = 0.068309
+
+Estadístico de contraste: TR^2 = 6.830897,
+con valor p = P(Chi-cuadrado(8) > 6.830897) = 0.554983
+
+
+
+      intervalo     punto medio   frecuencia  rel     acum.
+
+           < -193.81   -221.34        2      2.00%    2.00% 
+   -193.81 - -138.76   -166.28        7      7.00%    9.00% **
+   -138.76 - -83.703   -111.23       18     18.00%   27.00% ******
+   -83.703 - -28.650   -56.177       16     16.00%   43.00% *****
+   -28.650 -  26.402   -1.1240       15     15.00%   58.00% *****
+    26.402 -  81.455    53.929       19     19.00%   77.00% ******
+    81.455 -  136.51    108.98       11     11.00%   88.00% ***
+    136.51 -  191.56    164.03       10     10.00%   98.00% ***
+    191.56 -  246.61    219.09        1      1.00%   99.00% 
+    246.61 -  301.67    274.14        0      0.00%   99.00% 
+          >=  301.67    329.19        1      1.00%  100.00% 
+
+Contraste de la hipótesis nula de distribución Normal:
+Chi-cuadrado(2) = 2.040 con valor p 0.36061
+
+
+
+              coeficiente   Desv. típica   Estadístico t   valor p 
+  -----------------------------------------------------------------
+  const        351.059        80.6900          4.351       3.44e-05 ***
+  edad           6.11450       7.14797         0.8554      0.3945  
+  educacion     26.7368       31.7304          0.8426      0.4016  
+  genero       299.160       361.127           0.8284      0.4095  
+  yhat^2        31.4220       90.4992          0.3472      0.7292  
+  yhat^3        −2.45602       8.62620        −0.2847      0.7765  
+
+Hipótesis nula: [La especificación es adecuada]
+Estadístico de contraste: F = 0.226947,
+con valor p = P(F(2,94) > 0.226947) = 0.797
+
+
+
+Modelo 2: MCO, usando las observaciones 101-199 (n = 99)
+Variable dependiente: uhatsq
+
+               coeficiente   Desv. típica  Estadístico t  valor p 
+  ----------------------------------------------------------------
+  const       11268.2        1907.18           5.908      5.13e-08 ***
+  lag_uhatsq     −0.0105825     0.101348      −0.1044     0.9171  
+
+Media de la vble. dep.  11150.66   D.T. de la vble. dep.   15243.67
+Suma de cuad. residuos  2.28e+10   D.T. de la regresión    15321.18
+R-cuadrado              0.000112   R-cuadrado corregido   -0.010196
+F(1, 97)                0.010903   Valor p (de F)          0.917053
+Log-verosimilitud      −1093.527   Criterio de Akaike      2191.054
+Criterio de Schwarz     2196.244   Crit. de Hannan-Quinn   2193.154
+
+#  Proyección hipotética
+? ols ingreso_ct const edad educacion genero
+
+Modelo 3: MCO, usando las observaciones 100-199 (n = 100)
+Variable dependiente: ingreso_ct
+
+             coeficiente  Desv. típica  Estadístico t   valor p 
+  --------------------------------------------------------------
+  const       306.048      37.0083          8.270      7.61e-013 ***
+  edad          9.03962     0.745890       12.12       4.64e-021 ***
+  educacion    39.7920      1.76805        22.51       4.54e-040 ***
+  genero      446.899      21.6993         20.60       5.34e-037 ***
+
+Media de la vble. dep.  1267.822   D.T. de la vble. dep.   390.4279
+Suma de cuad. residuos   1104064   D.T. de la regresión    107.2412
+R-cuadrado              0.926839   R-cuadrado corregido    0.924553
+F(3, 96)                405.3938   Valor p (de F)          2.32e-54
+Log-verosimilitud      −607.3608   Criterio de Akaike      1222.722
+Criterio de Schwarz     1233.142   Crit. de Hannan-Quinn   1226.939
+
+
+
+        pred_ct =  1501.6388
+# ====================================================
+#  BLOQUE C: PANEL DE DATOS
+# ====================================================
+? clear
+
+Variable dependiente: ln_output
+
+              coeficiente  Desv. típica  Estadístico t   valor p 
+  ---------------------------------------------------------------
+  const        3.00372     0.00375895        799.1      5.14e-187 ***
+  ln_capital   0.499469    0.000509581       980.2      1.28e-195 ***
+  ln_trabajo   0.499813    0.000471957      1059        7.05e-199 ***
+
+Media de la vble. dep.  8.329841   D.T. de la vble. dep.   0.332562
+Suma de cuad. residuos  0.000519   D.T. de la regresión    0.002312
+R-cuadrado              0.999953   R-cuadrado corregido    0.999952
+F(2, 97)                 1023770   Valor p (de F)          1.8e-210
+Log-verosimilitud       466.5759   Criterio de Akaike     −927.1519
+Criterio de Schwarz    −919.3364   Crit. de Hannan-Quinn  −923.9888
+rho                     0.032464   Durbin-Watson           1.674233
+
+? panel ln_output const ln_capital ln_trabajo --fixed-effects
+
+Modelo 2: Efectos fijos, utilizando 100 observaciones
+Se han incluido 10 unidades de sección cruzada
+Largura de la serie temporal = 10
+Variable dependiente: ln_output
+
+              coeficiente  Desv. típica  Estadístico t   valor p 
+  ---------------------------------------------------------------
+  const        3.00375     0.00380775        788.9      3.53e-171 ***
+  ln_capital   0.499275    0.000517729       964.4      7.43e-179 ***
+  ln_trabajo   0.500021    0.000483547      1034        1.60e-181 ***
+
+Media de la vble. dep.  8.329841   D.T. de la vble. dep.   0.332562
+Suma de cuad. residuos  0.000460   D.T. de la regresión    0.002286
+R-cuadrado MCVF (LSDV)  0.999958   R-cuadrado 'intra'      0.999956
+F(11, 88) MCVF          190524.7   Valor p (de F)          1.6e-187
+Log-verosimilitud       472.6085   Criterio de Akaike     −921.2171
+Criterio de Schwarz    −889.9550   Crit. de Hannan-Quinn  −908.5647
+rho                    −0.060046   Durbin-Watson           1.884252
+
+Contraste conjunto de los regresores (excepto la constante) -
+  Estadístico de contraste: F(2, 88) = 995714
+  con valor p = P(F(2, 88) > 995714) = 2.47253e-192
+
+Contraste de diferentes interceptos por grupos -
+  Hipótesis nula: [Los grupos tienen un intercepto común]
+  Estadístico de contraste: F(9, 88) = 1.25382
+  con valor p = P(F(9, 88) > 1.25382) = 0.27358
+
+? panel ln_output const ln_capital ln_trabajo --random-effects
+
+Modelo 3: Efectos aleatorios (MCG), utilizando 100 observaciones
+Se han incluido 10 unidades de sección cruzada
+Largura de la serie temporal = 10
+
+               coeficiente   Desv. típica     z      valor p
+  ----------------------------------------------------------
+  const         3.00372      0.00375895      799.1   0.0000  ***
+  ln_capital    0.499469     0.000509581     980.2   0.0000  ***
+  ln_trabajo    0.499813     0.000471957    1059     0.0000  ***
+
+Media de la vble. dep.  8.329841   D.T. de la vble. dep.   0.332562
+Suma de cuad. residuos  0.000519   D.T. de la regresión    0.002301
+Log-verosimilitud       466.5759   Criterio de Akaike     −927.1519
+Criterio de Schwarz    −919.3364   Crit. de Hannan-Quinn  −923.9888
+rho                    −0.060046   Durbin-Watson           1.884252
+
+Varianza 'entre' (between) = 0
+Varianza 'dentro' (Within) = 5.22417e-006
+theta usado para quasi-demeaning (cuasi-centrado de los datos) = 0
+corr(y,yhat)^2 = 0.999953
+
+Contraste conjunto de los regresores (excepto la constante) -
+  Estadístico de contraste asintótico: Chi-cuadrado(2) = 2.04754e+06
+  con valor p = 0
+
+Contraste de Breusch-Pagan -
+  Hipótesis nula: [Varianza del error específico a la unidad = 0]
+  Estadístico de contraste asintótico: Chi-cuadrado(1) = 0.0596685
+  con valor p = 0.807021
+
+Contraste de Hausman -
+  Hipótesis nula: [Los estimadores de MCG son consistentes]
+  Estadístico de contraste asintótico: Chi-cuadrado(2) = 4.66836
+  con valor p = 0.0968898
+
+# ====================================================
+# 🔷 BONUS: MODELOS PROBABILÍSTICOS
+# ====================================================
+? clear
+? nulldata 100
+periodicidad: 1, máx. obs: 100
+rango de observaciones: 1 a 100
+? setobs 1 100 --cross-section
+Rango de datos completo: 100 - 199 (n = 100)
+
+? series trabaja    = (uniform(0,1) > 0.7)
+Se ha generado la serie trabaja (ID 2)
+? series edad       = uniform(18, 65)
+Se ha generado la serie edad (ID 3)
+? series educacion  = uniform(0, 20)
+Se ha generado la serie educacion (ID 4)
+? ols trabaja const edad educacion
+
+Modelo 1: MCO, usando las observaciones 100-199 (n = 100)
+Variable dependiente: trabaja
+
+              coeficiente   Desv. típica   Estadístico t   valor p
+  ----------------------------------------------------------------
+  const       0.0475030      0.179087         0.2653       0.7914 
+  edad        0.00333039     0.00340328       0.9786       0.3302 
+  educacion   0.00582107     0.00763291       0.7626       0.4475 
+
+Media de la vble. dep.  0.250000   D.T. de la vble. dep.   0.435194
+Suma de cuad. residuos  18.48438   D.T. de la regresión    0.436532
+R-cuadrado              0.014166   R-cuadrado corregido   -0.006160
+F(2, 97)                0.696948   Valor p (de F)          0.500580
+Log-verosimilitud      −57.48164   Criterio de Akaike      120.9633
+Criterio de Schwarz     128.7788   Crit. de Hannan-Quinn   124.1264
+
+? logit trabaja const edad educacion
+
+Modelo 2: Logit, usando las observaciones 100-199 (n = 100)
+Variable dependiente: trabaja
+Desviaciones típicas basadas en el Hessiano
+
+              coeficiente   Desv. típica      z      Pendiente 
+  -------------------------------------------------------------
+  const       −2.21127       0.995802      −2.221              
+  edad         0.0179961     0.0183613      0.9801   0.00334176
+  educacion    0.0313743     0.0410789      0.7638   0.00582602
+
+Media de la vble. dep.  0.250000   D.T. de la vble. dep.   0.435194
+R-cuadrado de McFadden  0.012672   R-cuadrado corregido   -0.040677
+Log-verosimilitud      −55.52094   Criterio de Akaike      117.0419
+Criterio de Schwarz     124.8574   Crit. de Hannan-Quinn   120.2050
+
+Número de casos 'correctamente predichos' = 75 (75.0%)
+f(beta'x) en la media de las variables independientes = 0.186
+Contraste de razón de verosimilitudes: Chi-cuadrado(2) = 1.42515 [0.4904]
+
+              Predicho
+                0    1
+  Observado 0  75    0
+            1  25    0
+
+
+
+Modelo 3: Probit, usando las observaciones 100-199 (n = 100)
+Variable dependiente: trabaja
+Desviaciones típicas basadas en el Hessiano
+
+              coeficiente   Desv. típica      z      Pendiente 
+  -------------------------------------------------------------
+  const       −1.31332       0.568592      −2.310              
+  edad         0.0103103     0.0105497      0.9773   0.00325761
+  educacion    0.0183799     0.0239180      0.7685   0.00580722
+
+Media de la vble. dep.  0.250000   D.T. de la vble. dep.   0.435194
+R-cuadrado de McFadden  0.012442   R-cuadrado corregido   -0.040907
+Log-verosimilitud      −55.53387   Criterio de Akaike      117.0677
+Criterio de Schwarz     124.8833   Crit. de Hannan-Quinn   120.2308
+
+Número de casos 'correctamente predichos' = 75 (75.0%)
+f(beta'x) en la media de las variables independientes = 0.316
+Contraste de razón de verosimilitudes: Chi-cuadrado(2) = 1.39928 [0.4968]
+
+              Predicho
+                0    1
+  Observado 0  75    0
+            1  25    0
+
+Contraste de normalidad de los residuos -
+  Hipótesis nula: [El error tiene distribución Normal]
+  Estadístico de contraste: Chi-cuadrado(2) = 1.38657
+  con valor p = 0.49993
+
